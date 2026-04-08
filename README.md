@@ -34,6 +34,5 @@ brew upgrade selah
 ## Verify
 
 ```sh
-lexicon-dex --version
-lexicon-dex list
+selah
 ```
