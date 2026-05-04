@@ -2,23 +2,56 @@ class Selah < Formula
   desc "A terminal Bible reader"
   homepage "https://github.com/jeremycastanza/selah"
   version "0.4.0"
-  license "MIT"
-
-  on_macos do
-    on_arm do
-    url "https://api.github.com/repos/jeremycastanza/homebrew-selah-tap/releases/assets/411201451", headers: ["Authorization: token #{ENV["HOMEBREW_GITHUB_API_TOKEN"]}", "Accept: application/octet-stream"]
-    sha256 "d89449a806ef2f404e2b8fce7309325d7c6c52cb617d9bf3cc376b6d4d175277"
+  if OS.mac?
+    if Hardware::CPU.arm?
+      url "https://github.com/jeremycastanza/selah/releases/download/v0.4.0/selah-aarch64-apple-darwin.tar.xz"
+      sha256 "d89449a806ef2f404e2b8fce7309325d7c6c52cb617d9bf3cc376b6d4d175277"
     end
   end
+  if OS.linux?
+    if Hardware::CPU.arm?
+      url "https://github.com/jeremycastanza/selah/releases/download/v0.4.0/selah-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "742ead58bb407a0be4b102d2f388949e4f918b6024af7e9afd4c90bbde069847"
+    end
+  end
+  license "GPL-3.0-only"
 
-  on_linux do
-    on_arm do
-    url "https://api.github.com/repos/jeremycastanza/homebrew-selah-tap/releases/assets/411201452", headers: ["Authorization: token #{ENV["HOMEBREW_GITHUB_API_TOKEN"]}", "Accept: application/octet-stream"]
-    sha256 "742ead58bb407a0be4b102d2f388949e4f918b6024af7e9afd4c90bbde069847"
+  BINARY_ALIASES = {
+    "aarch64-apple-darwin": {},
+    "aarch64-unknown-linux-gnu": {}
+  }
+
+  def target_triple
+    cpu = Hardware::CPU.arm? ? "aarch64" : "x86_64"
+    os = OS.mac? ? "apple-darwin" : "unknown-linux-gnu"
+
+    "#{cpu}-#{os}"
+  end
+
+  def install_binary_aliases!
+    BINARY_ALIASES[target_triple.to_sym].each do |source, dests|
+      dests.each do |dest|
+        bin.install_symlink bin/source.to_s => dest
+      end
     end
   end
 
   def install
-    bin.install "selah"
+    if OS.mac? && Hardware::CPU.arm?
+      bin.install "selah"
+    end
+    if OS.linux? && Hardware::CPU.arm?
+      bin.install "selah"
+    end
+
+    install_binary_aliases!
+
+    # Homebrew will automatically install these, so we don't need to do that
+    doc_files = Dir["README.*", "readme.*", "LICENSE", "LICENSE.*", "CHANGELOG.*"]
+    leftover_contents = Dir["*"] - doc_files
+
+    # Install any leftover files in pkgshare; these are probably config or
+    # sample files.
+    pkgshare.install(*leftover_contents) unless leftover_contents.empty?
   end
 end
