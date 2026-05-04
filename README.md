@@ -1,27 +1,11 @@
-# homebrew-selah-tap
+# homebrew-selah
 
-Homebrew tap for [selah](https://github.com/jeremycastanza/selah) — a Bible TUI.
-
-## Prerequisites
-
-You need a GitHub Personal Access Token (PAT) with read access to this repository.
-
-- **Classic PAT:** `repo` scope
-- **Fine-grained PAT:** `contents: read` on `jeremycastanza/homebrew-selah-tap`
-
-## Setup
-
-```sh
-# Add to your ~/.zshrc (or ~/.bashrc)
-export HOMEBREW_GITHUB_API_TOKEN="ghp_your_token_here"
-```
-
-Reload your shell or run `source ~/.zshrc`.
+Homebrew tap for [selah](https://github.com/jeremycastanza/selah) — a terminal Bible reader.
 
 ## Install
 
 ```sh
-brew tap jeremycastanza/selah-tap
+brew tap jeremycastanza/selah
 brew install selah
 ```
 
@@ -34,5 +18,9 @@ brew upgrade selah
 ## Verify
 
 ```sh
-selah
+selah --version
 ```
+
+## About
+
+This tap is automatically updated by [cargo-dist](https://github.com/axodotdev/cargo-dist) on each tagged release of selah.
