@@ -1,17 +1,17 @@
 class Selah < Formula
   desc "A terminal Bible reader"
   homepage "https://github.com/jeremycastanza/selah"
-  version "0.4.0"
+  version "1.0.0"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/jeremycastanza/selah/releases/download/v0.4.0/selah-aarch64-apple-darwin.tar.xz"
-      sha256 "d89449a806ef2f404e2b8fce7309325d7c6c52cb617d9bf3cc376b6d4d175277"
+      url "https://github.com/jeremycastanza/selah/releases/download/v1.0.0/selah-aarch64-apple-darwin.tar.xz"
+      sha256 "5aaaa69bc5a984b8d034dfb5171d7342d23b10e56a0c332851a97f3487ebda1a"
     end
   end
   if OS.linux?
     if Hardware::CPU.arm?
-      url "https://github.com/jeremycastanza/selah/releases/download/v0.4.0/selah-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "742ead58bb407a0be4b102d2f388949e4f918b6024af7e9afd4c90bbde069847"
+      url "https://github.com/jeremycastanza/selah/releases/download/v1.0.0/selah-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "6ad555a1109d8e7b7de24fdeaa930b8ea1d8cb8c4ca5aec2b2ff169ed964be12"
     end
   end
   license "GPL-3.0-only"
